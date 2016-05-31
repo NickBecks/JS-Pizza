@@ -1,3 +1,200 @@
 @mainColor: blue;
 
 @import "pizza/pizza-card";
+
+*{
+font-family: sans-serif;
+}
+
+body {
+    background-color: #FFFFF5;
+}
+
+#enter{
+    margin-bottom: 5px;
+    margin-left: 780px;
+}
+
+.main-content {
+    margin: 100px;
+    margin-right: 320px;
+    margin-left: 20px;
+    min-height: 400px;
+}
+.pizzaname{
+    color:#ec6a1c;
+    font-size: 30px;
+    font-weight:400;
+}
+.caption{  
+    text-align: center;
+}
+
+.top-label, .bottomlogo{
+    position: fixed;
+    z-index: 999999;
+    text-align: center;
+}
+
+.top-label {
+    margin-left: 10px;
+}
+
+.top-label img {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.logotext {
+    width: 100px;
+    height: 90px;
+    background-color: #EA862E;
+    margin: 0 0 -6px 0;
+    color: white;
+    font-size: 20px;
+    padding-top: 15px;
+}
+
+.logotext div{
+    font-size: 27px;
+}
+
+.bottomlogo {
+    bottom: 0;
+    left: 10px;
+    .logotext{
+        font-size: 13px;
+        font-weight: bolder;
+        height: 120px;
+        hr {
+            border: 2px dotted crimson;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+    img {
+        margin-bottom: -10px; 
+    }
+}
+#pizzalabel{
+    color: white;
+}
+.nav{
+    padding-left: 150px;
+    opacity: 0.9;
+}
+
+.toplabel {
+    padding-top: 17px;
+    border-bottom: 1px solid #827F7C;
+    margin-bottom: 8px;
+    :first-child {
+        font-size: 20px;
+    }
+    color: #a1a1a1;
+    * {
+        padding-right: 15px;
+    }
+    button {
+        margin-left: 770px
+    }
+}
+
+.pizza-nav-floor {
+    color: white;
+    font-size: 17px;
+}
+
+.pizfilter {
+    margin-top: 100px;
+    margin-bottom: 40px;
+    h2 {
+        text-align: center;
+    }
+}
+
+.badge {
+    background-color: #EA862E;
+}
+
+.pizzacategory ul {
+    text-align: center;
+    li {
+        display: inline-block;
+        a {
+            color: #EA862E;
+            text-decoration: none;
+            padding: 10px;
+        }
+        :hover {
+            background-color:#F0EDED;
+            border-radius: 3px;
+        }
+    }
+}
+
+.emptyfridge1{
+    margin-top: 150px;
+    font-size: 14px;
+}
+.emptyfridge2{
+    font-size: 14px;
+}
+
+.right-panel{
+    min-width:350px;;
+    width:350;
+    position:fixed;
+    z-index:2000;
+    top:0;
+    right:0;
+    bottom:0;
+    background-color: #f5f5f5;
+    box-shadow:0 0 10px black;
+    .order-name{
+        position:relative;
+        padding-top:30px;
+        padding-bottom:20px;
+        padding-left:5px;
+        padding-right:5px;
+        background-color:white;
+        .order{
+            font-size:25px;
+            font-family:sans-serif;
+            font-weight:700;
+        }
+        .amount{
+            background-color:#ec6a1c;
+            border-radius:15px;
+            padding:3px 10px;
+            color:white;
+        }
+        .cancel{
+            position:absolute;
+            right:10px;
+            top:50%;
+            font-size:12px;
+            color:grey;
+            
+        }
+    }
+    .complete{
+         border-top:1px solid lightgrey;
+            position:absolute;
+            bottom:0px;
+            background-color:white;
+            width:100%;
+           display:block;
+        
+         .order-btn{
+              width:100%;
+              text-align:center;
+              margin-bottom:15px;
+              margin-top:15px;
+             .btn{
+               
+                 width:80%;
+             }
+        }
+        }
+}
