@@ -178,17 +178,30 @@ var pizza_info = [
 module.exports = pizza_info;
 },{}],2:[function(require,module,exports){
 /**
+ * Created by ZimmerSan on 09.02.2016.
+ */
+var basil = require("basil.js");
+basil = new basil();
+
+exports.get = function(key){
+  return basil.get(key);
+};
+exports.set = function(key, value){
+  return basil.set(key, value);
+};
+},{"basil.js":7}],3:[function(require,module,exports){
+/**
  * Created by chaika on 02.02.16.
  */
 
 var ejs = require('ejs');
 
 
-exports.PizzaMenu_OneItem = ejs.compile("<%\n\nfunction getIngredientsArray(pizza) {\n    //Отримує вміст піци\n    var content = pizza.content;\n    var result = [];\n\n    //Object.keys повертає масив ключів в об’єкті JavaScript\n\n    Object.keys(content).forEach(function(key){\n\n        //a.concat(b) створює спільний масив із масивів a та b\n        result = result.concat(content[key]);\n    });\n\n    return result;\n}\n\n   %>\n<div class=\"col-md-6 col-lg-4 pizza-card\">\n    <div class=\"thumbnail\">\n        <img class=\"pizza-icon\" src=\"<%= pizza.icon %>\" alt=\"Pizza\">\n\n        <% if(pizza.is_new) { %>\n        <span class=\"label label-danger\">Нова</span>\n        <% } else if(pizza.is_popular) {%>\n        <span class=\"label label-success\">Популярна</span>\n        <% } %>\n\n        <div class=\"caption\">\n            <span class=\"title\"><%= pizza.title %></span>\n            <div class=\"type\"><%= pizza.type %></div>\n            <div class=\"description\">\n                <%= getIngredientsArray(pizza).join(\", \") %>\n            </div>\n        </div>\n\n        <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->\n        <button class=\"btn btn-primary buy-big\">Купити велику</button>\n    </div>\n</div>");
+exports.PizzaMenu_OneItem = ejs.compile("<%\r\n\r\nfunction getIngredientsArray(pizza) {\r\n    //Отримує вміст піци\r\n    var content = pizza.content;\r\n    var result = [];\r\n\r\n    //Object.keys повертає масив ключів в об’єкті JavaScript\r\n\r\n    Object.keys(content).forEach(function(key){\r\n\r\n        //a.concat(b) створює спільний масив із масивів a та b\r\n        result = result.concat(content[key]);\r\n    });\r\n\r\n    return result;\r\n}\r\n\r\n%>\r\n\r\n<div class=\"col-lg-4 col-md-6 col-xs-12\">\r\n    <div class=\"thumbnail pizza-card\">\r\n        <img src=\"<%= pizza.icon %>\">\r\n        <% if(pizza.is_new) { %>\r\n        <span class=\"label label-danger\">Нова</span>\r\n        <% } else if(pizza.is_popular) {%>\r\n        <span class=\"label label-success\">Популярна</span>\r\n        <% } %>\r\n        <div class=\"caption\">\r\n            <h3 class=\"title\"><%= pizza.title %></h3>\r\n            <p class=\"type\"><%= pizza.type %></p>\r\n            <p class=\"description\"><%= getIngredientsArray(pizza).join(\", \") %></p>\r\n            <div class=\"row text-center\">\r\n                <% if(pizza.small_size && pizza.big_size){ %>\r\n                <div class=\"col-md-6 col-sm-6 col-xs-6\">\r\n                    <p class=\"radius\"><img src=\"assets/images/size-icon.svg\"> <%= pizza.small_size.size %></p>\r\n                    <p class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= pizza.small_size.weight %></p>\r\n                    <b><span class=\"price\"><%= pizza.small_size.price %></span></b><br/>\r\n                    <b><p class=\"money\">грн</p></b>\r\n                    <a href=\"#\" class=\"btn btn-success buy-small\">Купити</a>\r\n                </div>\r\n                <div class=\"col-md-6 col-sm-6 col-xs-6\">\r\n                    <p class=\"radius\"><img src=\"assets/images/size-icon.svg\"> <%= pizza.big_size.size %></p>\r\n                    <p class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= pizza.big_size.weight %></p>\r\n                    <b><span class=\"price\"><%= pizza.big_size.price %></span></b><br/>\r\n                    <b><p class=\"money\">грн</p></b>\r\n                    <a href=\"#\" class=\"btn btn-success buy-big\">Купити</a>\r\n                </div>\r\n\r\n                <% } else if(pizza.small_size){ %>\r\n                <div class=\"col-md-12 col-sm-12 col-xs-12\">\r\n                    <p class=\"radius\"><img src=\"assets/images/size-icon.svg\"> <%= pizza.small_size.size %></p>\r\n                    <p class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= pizza.small_size.weight %></p>\r\n                    <b><span class=\"price\"><%= pizza.small_size.price %></span></b><br/>\r\n                    <b><p class=\"money\">грн</p></b>\r\n                    <a href=\"#\" class=\"btn btn-success buy-small\">Купити</a>\r\n                </div>\r\n                <% } else if(pizza.big_size){ %>\r\n                <div class=\"col-md-12 col-sm-12 col-xs-12\">\r\n                    <p class=\"radius\"><img src=\"assets/images/size-icon.svg\"> <%= pizza.big_size.size %></p>\r\n                    <p class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= pizza.big_size.weight %></p>\r\n                    <b><span class=\"price\"><%= pizza.big_size.price %></span></b><br/>\r\n                    <b><p class=\"money\">грн</p></b>\r\n                    <a href=\"#\" class=\"btn btn-success buy-big\">Купити</a>\r\n                </div>\r\n                <% } %>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
 
-exports.PizzaCart_OneItem = ejs.compile("<div>\n    <%= pizza.title %> (<%= size %>)\n    <div>Ціна: <%= pizza[size].price %> грн.</div>\n    <div>\n        <button class=\"btn btn-danger minus\">-</button>\n        <span class=\"label label-default\"><%= quantity %></span>\n        <button class=\"btn btn-success plus\">+</button>\n    </div>\n</div>");
+exports.PizzaCart_OneItem = ejs.compile("<div class=\"row pizza-booked\">\r\n    <div class=\"col-md-9 col-sm-10 left\">\r\n        <h4><%= pizza.title %> (<%= size %>)</h4>\r\n        <span class=\"radius\"><img src=\"assets/images/size-icon.svg\"> <%= pizza[size].size %></span>\r\n        <span class=\"weight\"><img src=\"assets/images/weight.svg\"> <%= pizza[size].weight %></span>\r\n        <p class=\"buttons\">\r\n            <b><span class=\"price\"><%= pizza[size].price*quantity %></span>грн </b>\r\n            <span class=\"glyphicon glyphicon-minus minus\" aria-hidden=\"true\"></span>\r\n            <span class=\"count-label\"><%= quantity %></span>\r\n            <span class=\"glyphicon glyphicon-plus plus\" aria-hidden=\"true\"></span>\r\n            <span class=\"glyphicon glyphicon-remove remove\" aria-hidden=\"true\"></span>\r\n        </p>\r\n    </div>\r\n    <div class=\"visible-lg-block visible-md-block visible-sm-block col-md-3 col-sm-2 image\">\r\n        <img src=\"<%= pizza.icon %>\">\r\n    </div>\r\n</div>");
 
-},{"ejs":6}],3:[function(require,module,exports){
+},{"ejs":8}],4:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -202,13 +215,30 @@ $(function(){
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
 
+    var $filter_buttons = $(".inner-navbar");
+    var $clear_button = $(".right-panel .clear");
+
+    $filter_buttons.find("a").click(function(){
+        PizzaMenu.filterPizza(this.id);
+        $filter_buttons.find("a").each(function(i, item){
+            $(item).removeClass("btn-success");
+        });
+        $(this).addClass("btn-success");
+    });
+
+    $clear_button.click(function(){
+        PizzaCart.getPizzaInCart().forEach(function(item){
+           PizzaCart.removeFromCart(item);
+        });
+    });
 
 });
-},{"./Pizza_List":1,"./pizza/PizzaCart":4,"./pizza/PizzaMenu":5}],4:[function(require,module,exports){
+},{"./Pizza_List":1,"./pizza/PizzaCart":5,"./pizza/PizzaMenu":6}],5:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
+var Storage = require('../Storage');
 
 //Перелік розмірів піци
 var PizzaSize = {
@@ -216,7 +246,7 @@ var PizzaSize = {
     Small: "small_size"
 };
 
-//Змінна в якій зберігаються перелік піц в кошику
+//Змінна в якій зберігається перелік піц в кошику
 var Cart = [];
 
 //HTML едемент куди будуть додаватися піци
@@ -224,13 +254,20 @@ var $cart = $("#cart");
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
-
-    //Приклад реалізації, можна робити будь-яким іншим способом
-    Cart.push({
-        pizza: pizza,
-        size: size,
-        quantity: 1
+    var unique = true;
+    Cart.forEach(function(item){
+        if(item.pizza.id === pizza.id && item.size === size){
+            item.quantity++;
+            unique = false;
+        }
     });
+
+    if(unique)
+        Cart.push({
+            pizza: pizza,
+            size: size,
+            quantity: 1
+        });
 
     //Оновити вміст кошика на сторінці
     updateCart();
@@ -238,7 +275,9 @@ function addToCart(pizza, size) {
 
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
-    //TODO: треба зробити
+    Cart = $.grep(Cart, function(value) {
+        return value.pizza.id != cart_item.pizza.id || value.size != cart_item.size;
+    });
 
     //Після видалення оновити відображення
     updateCart();
@@ -247,7 +286,9 @@ function removeFromCart(cart_item) {
 function initialiseCart() {
     //Фукнція віпрацьвуватиме при завантаженні сторінки
     //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
-    //TODO: ...
+
+    var savedPizza = Storage.get("cart");
+    if(savedPizza) Cart = savedPizza;
 
     updateCart();
 }
@@ -262,12 +303,16 @@ function updateCart() {
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
 
     //Очищаємо старі піци в кошику
+
     $cart.html("");
+    $(".footer .sum").text(0);
+    var totalPrice = 0;
 
     //Онволення однієї піци
     function showOnePizzaInCart(cart_item) {
         var html_code = Templates.PizzaCart_OneItem(cart_item);
-
+        totalPrice += cart_item.quantity * cart_item.pizza[cart_item.size].price;
+        $(".footer .sum").text(totalPrice);
         var $node = $(html_code);
 
         $node.find(".plus").click(function(){
@@ -278,11 +323,25 @@ function updateCart() {
             updateCart();
         });
 
+        $node.find(".minus").click(function(){
+            cart_item.quantity -= 1;
+            if(cart_item.quantity <= 0) removeFromCart(cart_item);
+            updateCart();
+        });
+
+        $node.find(".remove").click(function(){
+            removeFromCart(cart_item);
+            updateCart();
+        });
+
         $cart.append($node);
     }
 
     Cart.forEach(showOnePizzaInCart);
 
+    $("#booked-number").text(Cart.length);
+
+    Storage.set("cart", Cart);
 }
 
 exports.removeFromCart = removeFromCart;
@@ -292,7 +351,7 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-},{"../Templates":2}],5:[function(require,module,exports){
+},{"../Storage":2,"../Templates":3}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -304,7 +363,7 @@ var Pizza_List = require('../Pizza_List');
 var $pizza_list = $("#pizza_list");
 
 function showPizzaList(list) {
-    //Очищаємо старі піци в кошику
+    //Очищаємо старі піци в меню
     $pizza_list.html("");
 
     //Онволення однієї піци
@@ -324,19 +383,24 @@ function showPizzaList(list) {
     }
 
     list.forEach(showOnePizza);
+
+    $("#existing-number").text(list.length);
 }
 
 function filterPizza(filter) {
     //Масив куди потраплять піци які треба показати
     var pizza_shown = [];
-
-    Pizza_List.forEach(function(pizza){
-        //Якщо піка відповідає фільтру
-        //pizza_shown.push(pizza);
-
-        //TODO: зробити фільтри
-    });
-
+    console.log(filter);
+    if(filter === "all") pizza_shown = Pizza_List;
+    else if(filter === "vega") {
+        Pizza_List.forEach(function(pizza){
+            if(pizza.type === 'Вега піца') pizza_shown.push(pizza);
+        });
+    } else {
+        Pizza_List.forEach(function(pizza){
+            if(pizza.content[filter]) pizza_shown.push(pizza);
+        });
+    }
     //Показати відфільтровані піци
     showPizzaList(pizza_shown);
 }
@@ -348,7 +412,376 @@ function initialiseMenu() {
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../Pizza_List":1,"../Templates":2,"./PizzaCart":4}],6:[function(require,module,exports){
+},{"../Pizza_List":1,"../Templates":3,"./PizzaCart":5}],7:[function(require,module,exports){
+(function () {
+	// Basil
+	var Basil = function (options) {
+		return Basil.utils.extend({}, Basil.plugins, new Basil.Storage().init(options));
+	};
+
+	// Version
+	Basil.version = '0.4.2';
+
+	// Utils
+	Basil.utils = {
+		extend: function () {
+			var destination = typeof arguments[0] === 'object' ? arguments[0] : {};
+			for (var i = 1; i < arguments.length; i++) {
+				if (arguments[i] && typeof arguments[i] === 'object')
+					for (var property in arguments[i])
+						destination[property] = arguments[i][property];
+			}
+			return destination;
+		},
+		each: function (obj, fnIterator, context) {
+			if (this.isArray(obj)) {
+				for (var i = 0; i < obj.length; i++)
+					if (fnIterator.call(context, obj[i], i) === false) return;
+			} else if (obj) {
+				for (var key in obj)
+					if (fnIterator.call(context, obj[key], key) === false) return;
+			}
+		},
+		tryEach: function (obj, fnIterator, fnError, context) {
+			this.each(obj, function (value, key) {
+				try {
+					return fnIterator.call(context, value, key);
+				} catch (error) {
+					if (this.isFunction(fnError)) {
+						try {
+							fnError.call(context, value, key, error);
+						} catch (error) {}
+					}
+				}
+			}, this);
+		},
+		registerPlugin: function (methods) {
+			Basil.plugins = this.extend(methods, Basil.plugins);
+		}
+	};
+  	// Add some isType methods: isArguments, isBoolean, isFunction, isString, isArray, isNumber, isDate, isRegExp.
+	var types = ['Arguments', 'Boolean', 'Function', 'String', 'Array', 'Number', 'Date', 'RegExp']
+	for (var i = 0; i < types.length; i++) {
+		Basil.utils['is' + types[i]] = (function (type) {
+			return function (obj) {
+				return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+			};
+		})(types[i]);
+	}
+
+	// Plugins
+	Basil.plugins = {};
+
+	// Options
+	Basil.options = Basil.utils.extend({
+		namespace: 'b45i1',
+		storages: ['local', 'cookie', 'session', 'memory'],
+		expireDays: 365
+	}, window.Basil ? window.Basil.options : {});
+
+	// Storage
+	Basil.Storage = function () {
+		var _salt = 'b45i1' + (Math.random() + 1)
+				.toString(36)
+				.substring(7),
+			_storages = {},
+			_toStoragesArray = function (storages) {
+				if (Basil.utils.isArray(storages))
+					return storages;
+				return Basil.utils.isString(storages) ? [storages] : [];
+			},
+			_toStoredKey = function (namespace, path) {
+				var key = '';
+				if (Basil.utils.isString(path) && path.length)
+					path = [path];
+				if (Basil.utils.isArray(path) && path.length)
+					key = path.join('.');
+				return key && namespace ? namespace + '.' + key : key;
+			},
+			_toKeyName = function (namespace, key) {
+				if (!namespace)
+					return key;
+				return key.replace(new RegExp('^' + namespace + '.'), '');
+			},
+			_toStoredValue = function (value) {
+				return JSON.stringify(value);
+			},
+			_fromStoredValue = function (value) {
+				return value ? JSON.parse(value) : null;
+			};
+
+		// HTML5 web storage interface
+		var webStorageInterface = {
+			engine: null,
+			check: function () {
+				try {
+					window[this.engine].setItem(_salt, true);
+					window[this.engine].removeItem(_salt);
+				} catch (e) {
+					return false;
+				}
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				window[this.engine].setItem(key, value);
+			},
+			get: function (key) {
+				return window[this.engine].getItem(key);
+			},
+			remove: function (key) {
+				window[this.engine].removeItem(key);
+			},
+			reset: function (namespace) {
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0) {
+						this.remove(key);
+						i--;
+					}
+				}
+			},
+			keys: function (namespace) {
+				var keys = [];
+				for (var i = 0, key; i < window[this.engine].length; i++) {
+					key = window[this.engine].key(i);
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key));
+				}
+				return keys;
+			}
+		};
+
+		// local storage
+		_storages.local = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'localStorage'
+		});
+		// session storage
+		_storages.session = Basil.utils.extend({}, webStorageInterface, {
+			engine: 'sessionStorage'
+		});
+
+		// memory storage
+		_storages.memory = {
+			_hash: {},
+			check: function () {
+				return true;
+			},
+			set: function (key, value, options) {
+				if (!key)
+					throw Error('invalid key');
+				this._hash[key] = value;
+			},
+			get: function (key) {
+				return this._hash[key] || null;
+			},
+			remove: function (key) {
+				delete this._hash[key];
+			},
+			reset: function (namespace) {
+				for (var key in this._hash) {
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace) {
+				var keys = [];
+				for (var key in this._hash)
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key));
+				return keys;
+			}
+		};
+
+		// cookie storage
+		_storages.cookie = {
+			check: function () {
+				return navigator.cookieEnabled;
+			},
+			set: function (key, value, options) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				options = options || {};
+				if (!key)
+					throw Error('invalid key');
+				var cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value);
+				// handle expiration days
+				if (options.expireDays) {
+					var date = new Date();
+					date.setTime(date.getTime() + (options.expireDays * 24 * 60 * 60 * 1000));
+					cookie += '; expires=' + date.toGMTString();
+				}
+				// handle domain
+				if (options.domain && options.domain !== document.domain) {
+					var _domain = options.domain.replace(/^\./, '');
+					if (document.domain.indexOf(_domain) === -1 || _domain.split('.').length <= 1)
+						throw Error('invalid domain');
+					cookie += '; domain=' + options.domain;
+				}
+				// handle secure
+				if (options.secure === true) {
+					cookie += '; secure';
+				}
+				document.cookie = cookie + '; path=/';
+			},
+			get: function (key) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var encodedKey = encodeURIComponent(key);
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				// retrieve last updated cookie first
+				for (var i = cookies.length - 1, cookie; i >= 0; i--) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					if (cookie.indexOf(encodedKey + '=') === 0)
+						return decodeURIComponent(cookie.substring(encodedKey.length + 1, cookie.length));
+				}
+				return null;
+			},
+			remove: function (key) {
+				// remove cookie from main domain
+				this.set(key, '', { expireDays: -1 });
+				// remove cookie from upper domains
+				var domainParts = document.domain.split('.');
+				for (var i = domainParts.length; i >= 0; i--) {
+					this.set(key, '', { expireDays: -1, domain: '.' + domainParts.slice(- i).join('.') });
+				}
+			},
+			reset: function (namespace) {
+				var cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = cookie.substr(0, cookie.indexOf('='));
+					if (!namespace || key.indexOf(namespace) === 0)
+						this.remove(key);
+				}
+			},
+			keys: function (namespace) {
+				if (!this.check())
+					throw Error('cookies are disabled');
+				var keys = [],
+					cookies = document.cookie ? document.cookie.split(';') : [];
+				for (var i = 0, cookie, key; i < cookies.length; i++) {
+					cookie = cookies[i].replace(/^\s*/, '');
+					key = decodeURIComponent(cookie.substr(0, cookie.indexOf('=')));
+					if (!namespace || key.indexOf(namespace) === 0)
+						keys.push(_toKeyName(namespace, key));
+				}
+				return keys;
+			}
+		};
+
+		return {
+			init: function (options) {
+				this.setOptions(options);
+				return this;
+			},
+			setOptions: function (options) {
+				this.options = Basil.utils.extend({}, this.options || Basil.options, options);
+			},
+			support: function (storage) {
+				return _storages.hasOwnProperty(storage);
+			},
+			check: function (storage) {
+				if (this.support(storage))
+					return _storages[storage].check();
+				return false;
+			},
+			set: function (key, value, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key)))
+					return false;
+				value = options.raw === true ? value : _toStoredValue(value);
+				var where = null;
+				// try to set key/value in first available storage
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					_storages[storage].set(key, value, options);
+					where = storage;
+					return false; // break;
+				}, null, this);
+				if (!where) {
+					// key has not been set anywhere
+					return false;
+				}
+				// remove key from all other storages
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (storage !== where)
+						_storages[storage].remove(key);
+				}, null, this);
+				return true;
+			},
+			get: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key)))
+					return null;
+				var value = null;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage, index) {
+					if (value !== null)
+						return false; // break if a value has already been found.
+					value = _storages[storage].get(key, options) || null;
+					value = options.raw === true ? value : _fromStoredValue(value);
+				}, function (storage, index, error) {
+					value = null;
+				}, this);
+				return value;
+			},
+			remove: function (key, options) {
+				options = Basil.utils.extend({}, this.options, options);
+				if (!(key = _toStoredKey(options.namespace, key)))
+					return;
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].remove(key);
+				}, null, this);
+			},
+			reset: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					_storages[storage].reset(options.namespace);
+				}, null, this);
+			},
+			keys: function (options) {
+				options = options || {};
+				var keys = [];
+				for (var key in this.keysMap(options))
+					keys.push(key);
+				return keys;
+			},
+			keysMap: function (options) {
+				options = Basil.utils.extend({}, this.options, options);
+				var map = {};
+				Basil.utils.tryEach(_toStoragesArray(options.storages), function (storage) {
+					Basil.utils.each(_storages[storage].keys(options.namespace), function (key) {
+						map[key] = Basil.utils.isArray(map[key]) ? map[key] : [];
+						map[key].push(storage);
+					}, this);
+				}, null, this);
+				return map;
+			}
+		};
+	};
+
+	// Access to native storages, without namespace or basil value decoration
+	Basil.memory = new Basil.Storage().init({ storages: 'memory', namespace: null, raw: true });
+	Basil.cookie = new Basil.Storage().init({ storages: 'cookie', namespace: null, raw: true });
+	Basil.localStorage = new Basil.Storage().init({ storages: 'local', namespace: null, raw: true });
+	Basil.sessionStorage = new Basil.Storage().init({ storages: 'session', namespace: null, raw: true });
+
+	// browser export
+	window.Basil = Basil;
+
+	// AMD export
+	if (typeof define === 'function' && define.amd) {
+		define(function() {
+			return Basil;
+		});
+	// commonjs export
+	} else if (typeof module !== 'undefined' && module.exports) {
+		module.exports = Basil;
+	}
+
+})();
+
+},{}],8:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1099,7 +1532,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":8,"./utils":7,"fs":9,"path":10}],7:[function(require,module,exports){
+},{"../package.json":10,"./utils":9,"fs":11,"path":12}],9:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1242,7 +1675,7 @@ exports.cache = {
 };
 
 
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports={
   "name": "ejs",
   "description": "Embedded JavaScript templates",
@@ -1318,13 +1751,12 @@ module.exports={
     "shasum": "82e15b1b2a1f948b18097476ba2bd7c66f4d1566",
     "tarball": "http://registry.npmjs.org/ejs/-/ejs-2.4.1.tgz"
   },
-  "directories": {},
-  "readme": "ERROR: No README data found!"
+  "directories": {}
 }
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1552,7 +1984,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":11}],11:[function(require,module,exports){
+},{"_process":13}],13:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1645,4 +2077,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[3]);
+},{}]},{},[4]);

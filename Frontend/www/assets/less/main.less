@@ -1,34 +1,170 @@
-@mainColor: blue;
+@mainColor: #EA862E;
 
 @import "pizza/pizza-card";
 
-*{
-font-family: sans-serif;
+body{
+  background: #FFFFF5;
+}
+h3{
+  color: @mainColor;
+}
+.badge{
+  background-color: @mainColor;
 }
 
-body {
-    background-color: #FFFFF5;
+
+.footer{
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: white;
+  position: absolute;
+  bottom:0;
+  width: 100%;
+  border-top: 1px solid lighten(#000, 85%);
+  padding-top: 15px;
+
+  .sum{
+    margin-right: 15px;
+    font-size: 18px;
+  }
+
+  button{
+    margin-top: 15px;
+    width: 100%;
+  }
 }
 
+
+
+.btn-list, .navbar-btn{
+    color: #fff;
+    background-color: @mainColor;
+    border-color: @mainColor;
+}
+
+.btn-list:hover{
+    color: #fff;
+    background-color: lighten(@mainColor,15%);
+    border-color: lighten(@mainColor,15%);
+}
+
+.discount-panel {
+    position: fixed;
+    bottom: 0;
+    left:10px;
+    background: #ea862e;
+    width: 90px;
+    padding: 10px;
+    color: #fff;
+}
+.discount-before {
+    width:90px;
+    height: 11px;
+    top: -11px;
+    left: -0px;
+    background-image: url(../images/discount.svg);
+    background-size: 100px 11px;
+    background-repeat: no-repeat;
+    padding: 0!important;
+    margin: 0!important;
+    position: absolute;
+}
+.discount-title {
+    text-transform: uppercase;
+    font-family: Helvetica,Calibri;
+    font-weight: 700;
+    font-size: 15px;
+    border-bottom: 2px dotted #d16301;
+    margin-bottom: 7px;
+    padding-bottom: 3px;
+}
+
+.discount-text {
+    font-size: 15px;
+    font-weight: 700;
+}
+.pizza-booked{
+
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lighten(#000, 85%);
+  overflow: hidden;
+
+  .radius{
+    margin-right: 10px;
+  }
+
+  .left{
+    padding-right: 0;
+  }
+
+  .buttons{
+
+    .glyphicon{
+
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      color: white;
+
+      -webkit-transition: background-color .1s ease;
+      -moz-transition: background-color .1s ease;
+      -o-transition: background-color .1s ease;
+      transition: background-color .1s ease;
+
+      &.glyphicon-plus{
+        background-color: #5CB85C;
+      }
+      &.glyphicon-plus:hover{
+        background-color: #449D44;
+      }
+
+      &.glyphicon-minus{
+        margin-left: 15px;
+        background-color: #D9534F;
+      }
+      &.glyphicon-minus:hover{
+        background-color: #C9302C;
+      }
+
+      &.glyphicon-remove{
+        margin-left: 20px;
+        background-color: orange;
+      }
+      &.glyphicon-remove:hover{
+        background-color: #EC971F;
+      }
+
+      @media screen and (max-width: 1024px) {
+        font-size: 10px;
+        padding: 7px;
+      }
+    }
+
+  }
+
+  .image{
+    img{
+      max-height: 88px;
+      position: absolute;
+      right: -30px;
+      top:20px;
+    }
+
+    @media screen and (max-width: 1024px) {
+      img{
+        max-height: 88px;
+        position: absolute;
+        right: -40px;
+      }
+    }
+  }
+}
 #enter{
     margin-bottom: 5px;
     margin-left: 780px;
 }
 
-.main-content {
-    margin: 100px;
-    margin-right: 320px;
-    margin-left: 20px;
-    min-height: 400px;
-}
-.pizzaname{
-    color:#ec6a1c;
-    font-size: 30px;
-    font-weight:400;
-}
-.caption{  
-    text-align: center;
-}
 
 .top-label, .bottomlogo{
     position: fixed;
@@ -55,9 +191,6 @@ body {
     padding-top: 15px;
 }
 
-.logotext div{
-    font-size: 27px;
-}
 
 .bottomlogo {
     bottom: 0;
@@ -76,9 +209,7 @@ body {
         margin-bottom: -10px; 
     }
 }
-#pizzalabel{
-    color: white;
-}
+
 .nav{
     padding-left: 150px;
     opacity: 0.9;
@@ -105,96 +236,85 @@ body {
     font-size: 17px;
 }
 
-.pizfilter {
-    margin-top: 100px;
-    margin-bottom: 40px;
-    h2 {
-        text-align: center;
+.left-panel{
+
+  .header {
+    background: black;
+    color: white;
+    opacity: 0.9;
+    padding: 10px 20px;
+    right: 0;
+    top: 0;
+    z-index: 900;
+
+    .header-top {
+      padding-bottom: 5px;
+      border-bottom: 1px solid white;
+      opacity: 0.9;
+
+      span {
+        margin-right: 25px;
+      }
     }
+  }
+
+  .content{
+    padding-top: 75px;
+  }
+
+  .inner-header{
+    margin-bottom: 35px;
+  }
+
 }
 
-.badge {
-    background-color: #EA862E;
-}
+.right-panel {
+  position: fixed;
+  top:0;
+  right:0;
+  bottom: 0;
 
-.pizzacategory ul {
-    text-align: center;
-    li {
-        display: inline-block;
-        a {
-            color: #EA862E;
-            text-decoration: none;
-            padding: 10px;
-        }
-        :hover {
-            background-color:#F0EDED;
-            border-radius: 3px;
-        }
+  min-width: 230px;
+  height: 100%;
+  z-index: 9999;
+  background: white;
+
+  margin-left: 20px;
+  padding-right: 0!important;
+  padding-left: 0!important;
+
+  box-shadow: rgba(0, 0, 0, 0.2)  -3px 3px 10px;
+
+  .header{
+    background-color: white;
+    height: 75px;
+    opacity:1;
+
+    h4.navbar-brand{
+      padding-right: 0;
     }
-}
 
-.emptyfridge1{
-    margin-top: 150px;
-    font-size: 14px;
-}
-.emptyfridge2{
-    font-size: 14px;
-}
-
-.right-panel{
-    min-width:350px;;
-    width:350;
-    position:fixed;
-    z-index:2000;
-    top:0;
-    right:0;
-    bottom:0;
-    background-color: #f5f5f5;
-    box-shadow:0 0 10px black;
-    .order-name{
-        position:relative;
-        padding-top:30px;
-        padding-bottom:20px;
-        padding-left:5px;
-        padding-right:5px;
-        background-color:white;
-        .order{
-            font-size:25px;
-            font-family:sans-serif;
-            font-weight:700;
-        }
-        .amount{
-            background-color:#ec6a1c;
-            border-radius:15px;
-            padding:3px 10px;
-            color:white;
-        }
-        .cancel{
-            position:absolute;
-            right:10px;
-            top:50%;
-            font-size:12px;
-            color:grey;
-            
-        }
+    .clear {
+      font-size: 12px;
+      margin: 10px auto;
+      cursor: pointer;
     }
-    .complete{
-         border-top:1px solid lightgrey;
-            position:absolute;
-            bottom:0px;
-            background-color:white;
-            width:100%;
-           display:block;
-        
-         .order-btn{
-              width:100%;
-              text-align:center;
-              margin-bottom:15px;
-              margin-top:15px;
-             .btn{
-               
-                 width:80%;
-             }
-        }
-        }
+
+    .navbar-header {
+      width: 100%;
+    }
+  }
+
+  .content{
+    max-height: 450px;
+    padding-left: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    h4{
+      color: @mainColor;
+    }
+
+  }
 }
+
